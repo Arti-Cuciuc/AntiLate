@@ -61,3 +61,11 @@ Thumbs.db
 /.cursor/
 /.idea/
 /.vscode/
+
+# Local tool caches / diagnostics
+.npm/
+.eslintcache
+.stylelintcache
+.nyc_output/
+*.lcov
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
