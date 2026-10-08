@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>AntiLate — running ahead of time</title>
+  <desc>A running figure over two clock hands, adapted from the founder's sketch. Ink #1C1A19 on canvas #FFFDFC.</desc>
+  <rect id="background" width="1024" height="1024" fill="#FFFDFC"/>
+  <g id="clock-hands" fill="#1C1A19">
+    <path id="minute-hand" d="M538 534V244L506 276Q497 285 489 277L475 263Q467 255 476 246L546 176Q560 162 574 176L644 246Q653 255 645 263L631 277Q623 285 614 276L582 244V534Z"/>
+    <path id="hour-hand" d="M577 537L366 754H410Q424 754 424 768V782Q424 796 410 796H310Q296 796 296 782V682Q296 668 310 668H324Q338 668 338 682V718L545 506Z"/>
+    <circle id="clock-pivot" cx="560" cy="522" r="30"/>
+  </g>
+  <defs>
+  <g id="runner-shape">
+    <path id="rear-arm" d="M541 406L610 451Q624 459 623 475L619 523Q617 540 601 538Q585 537 587 521L590 478L520 437Z"/>
+    <path id="rear-leg" d="M563 509L615 566L655 535Q669 524 680 538L695 559Q705 573 692 583Q679 593 669 579L665 573L625 607Q610 619 596 605L525 542Z"/>
+    <path id="front-leg" d="M543 500Q560 501 570 516Q579 532 565 546L487 605L490 667Q491 682 478 691L445 714Q430 724 420 710Q410 696 425 686L448 670L443 597Q442 583 454 573L513 517Q526 499 543 500Z"/>
+    <path id="body-and-front-arm" d="M504 393Q524 391 537 410L580 506Q588 526 570 539Q551 552 535 537L493 469L451 483Q438 487 426 480L386 456Q371 447 380 432Q389 418 404 427L439 448L476 423L480 410Q487 395 504 393Z"/>
+    <circle id="head" cx="494" cy="338" r="43"/>
+  </g>
+  </defs>
+  <g id="runner" stroke-linejoin="round">
+    <use href="#runner-shape" fill="#FFFDFC" stroke="#FFFDFC" stroke-width="20"/>
+    <use href="#runner-shape" fill="#1C1A19"/>
+  </g>
+</svg>

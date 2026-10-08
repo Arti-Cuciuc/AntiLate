@@ -1,41 +1,63 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Dependencies (commit package-lock.json)
 node_modules/
 
-# Expo
+# Expo / generated web output
 .expo/
-dist/
-web-build/
+/dist/
+/web-build/
 expo-env.d.ts
 
-# Native
+# Generated native projects. Keep modules/antilate-alarm/android sources.
+/ios/
+/android/
+.gradle/
 .kotlin/
+local.properties
 *.orig.*
+
+# APKs, bundles and local build output (publish APKs through GitHub Releases)
+*.apk
+*.aab
+*.apks
+*.ipa
+/build/
+/builds/
+/artifacts/
+/coverage/
+
+# Signing credentials / private keys
 *.jks
+*.keystore
 *.p8
 *.p12
 *.key
+*.pem
 *.mobileprovision
+credentials.json
 
 # Metro
 .metro-health-check*
 
-# debug
+# Debug / test output
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
-# macOS
+# OS metadata
 .DS_Store
-*.pem
+Thumbs.db
 
-# local env files
-.env*.local
+# Local environment (a non-secret example may be committed)
+.env
+.env.*
+!.env.example
 
-# typescript
+# TypeScript cache
 *.tsbuildinfo
 
-# generated native folders
-/ios
-/android
+# Personal editor / assistant settings
+/.claude/
+/.cursor/
+/.idea/
+/.vscode/

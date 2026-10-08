@@ -1,0 +1,41 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./App.tsx', './src/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        ink: 'var(--color-ink)',
+        paper: 'var(--color-paper)',
+        muted: 'var(--color-muted)',
+        wine: 'var(--color-wine)',
+        'wine-dark': 'var(--color-wine-dark)',
+        canvas: 'var(--color-canvas)',
+        placeholder: 'var(--color-placeholder)',
+        outline: 'var(--color-outline)',
+        divider: 'var(--color-divider)',
+        action: 'var(--color-action)',
+        'on-action': 'var(--color-on-action)',
+        'on-action-muted': 'var(--color-on-action-muted)',
+        tint: 'var(--color-tint)',
+        error: 'var(--color-error)',
+        danger: 'var(--color-danger)',
+        'on-danger': 'var(--color-on-danger)',
+        nav: 'var(--color-nav)',
+        'nav-border': 'var(--color-nav-border)',
+        sheet: 'var(--color-sheet)',
+        overlay: 'var(--color-overlay)',
+        feature: 'var(--color-feature)',
+        'on-feature': 'var(--color-on-feature)',
+        'feature-muted': 'var(--color-feature-muted)',
+        'feature-divider': 'var(--color-feature-divider)',
+      },
+      fontFamily: {
+        manrope: ['Manrope_400Regular'],
+        'manrope-semibold': ['Manrope_600SemiBold'],
+        'manrope-extrabold': ['Manrope_800ExtraBold'],
+      },
+    },
+  },
+  plugins: [],
+};
