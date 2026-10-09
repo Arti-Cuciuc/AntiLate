@@ -4,7 +4,7 @@
 .reveal-pending { opacity: 0; transform: translateY(8px); }
 .reveal-enter { animation: quiet-enter 960ms var(--motion-ease) var(--reveal-delay, 0ms) both; }
 .hero-copy.reveal-enter, .hero-product.reveal-enter {
-  animation-duration: 3s;
+  animation-duration: 1.5s;
   animation-timing-function: cubic-bezier(.37,0,.63,1);
 }
 .feature-description, .live-example { animation: quiet-enter 600ms var(--motion-ease); }
