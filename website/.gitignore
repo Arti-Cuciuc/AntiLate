@@ -1,0 +1,4 @@
+dist/
+output/
+.vite/
+.playwright-cli/
