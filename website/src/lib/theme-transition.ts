@@ -21,7 +21,7 @@ export function transitionTheme(update: () => void, origin?: ThemeOrigin) {
   transition.ready.then(() => {
     const radius = themeWaveRadius(origin, innerWidth, innerHeight);
     root.animate({ clipPath: [`circle(0px at ${origin.x}px ${origin.y}px)`, `circle(${radius}px at ${origin.x}px ${origin.y}px)`] }, {
-      duration: 560,
+      duration: 700,
       easing: 'cubic-bezier(.22,.65,.25,1)',
       fill: 'both',
       pseudoElement: '::view-transition-new(root)',

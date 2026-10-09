@@ -122,8 +122,8 @@
 /* The landing page owns vertical gestures, including over the phone demos. */
 .app-preview { touch-action: pan-x pan-y pinch-zoom; }
 .preview-filters, .preview-group-choices { overscroll-behavior: auto; }
-.preview-screen-transition { position: absolute; inset: 0; animation: quiet-enter 260ms cubic-bezier(.2,.75,.25,1); }
-.preview-event-list { animation: quiet-enter 220ms ease-out; }
+.preview-screen-transition { position: absolute; inset: 0; animation: quiet-enter 340ms cubic-bezier(.2,.75,.25,1); }
+.preview-event-list { animation: quiet-enter 280ms ease-out; }
 .app-preview, .preview-scene, .preview-page, .preview-nav, .preview-system-navigation,
 .preview-countdown, .preview-group-card, .preview-template-card, .preview-settings-list,
 .preview-appearance-option { transition: background-color 240ms ease, color 240ms ease, border-color 180ms ease; }
