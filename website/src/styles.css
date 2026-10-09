@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./components/app-preview.css";
+@import "./motion.css";
 
 @font-face { font-family: Manrope; src: url('/fonts/manrope-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: Manrope; src: url('/fonts/manrope-extrabold.ttf') format('truetype'); font-weight: 600 900; font-display: swap; }
@@ -60,8 +61,6 @@ h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.16; let
 .site-header { position: sticky; top: 0; z-index: 20; padding-top: 18px; margin-bottom: 18px; pointer-events: none; }
 .header-island { pointer-events: auto; height: 64px; padding: 8px 10px 8px 24px; border: 1.5px solid var(--site-nav-border); border-radius: 32px; background: var(--site-nav); }
 .header-actions { display: flex; align-items: center; gap: 12px; }
-.site-theme-select { min-height: 44px; width: 128px; padding: 8px 6px; border: 0; border-radius: 10px; background: transparent; color: var(--color-ink); cursor: pointer; font-size: 12px; }
-.site-theme-select option { background: var(--color-paper); color: var(--color-ink); }
 .header-island .download-button { border-radius: 24px; min-height: 45px; }
 .wordmark { font-size: 29px; font-weight: 800; letter-spacing: -1.6px; display: inline-flex; align-items: baseline; line-height: 1; }
 .brand-dot { height: 7px; width: 7px; background: var(--color-wine); border-radius: 50%; margin-left: 3px; }
@@ -110,7 +109,7 @@ h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.16; let
 .feature-copy h2 span { color: var(--color-muted); }
 .feature-options { margin-top: 32px; }
 .feature-options button { display: flex; align-items: center; gap: 18px; width: 100%; text-align: left; padding: 22px 0; border-bottom: 1px solid var(--color-divider); font-size: 15px; color: var(--color-muted); }
-.feature-options button > svg { margin-left: auto; opacity: 0; transition: opacity 180ms; }
+.feature-options button > svg { margin-left: auto; opacity: 0; transition: opacity 220ms, translate 220ms var(--motion-ease); }
 .feature-options button.active { color: var(--color-ink); font-weight: 800; }
 .feature-options button.active > svg, .feature-options button:hover > svg { opacity: 1; }
 .feature-number { font-size: 10px; color: var(--color-muted); font-weight: 400; }
@@ -136,13 +135,6 @@ h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.16; let
 .site-footer nav { display: flex; gap: 28px; font-size: 11px; }
 .footer-year { margin-top: 0; }
 
-/* App-like motion: small displacement, short duration, no layout shift. */
-@keyframes quiet-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-.reveal-pending { opacity: 0; }
-.reveal-enter { animation: quiet-enter 360ms cubic-bezier(.2,.75,.25,1) both; }
-.feature-description, .live-example { animation: quiet-enter 240ms ease-out; }
-.questions-list details[open] p { animation: quiet-enter 200ms ease-out; }
-
 @media (max-width: 1100px) {
   .page-container { width: calc(100% - 64px); }
   .hero { gap: 40px; }
@@ -157,7 +149,6 @@ h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.16; let
   .header-island { height: 58px; padding: 6px 7px 6px 18px; gap: 10px; border-radius: 29px; }
   .header-island .wordmark { font-size: 24px; }
   .header-actions { gap: 6px; }
-  .site-theme-select { width: 96px; font-size: 10px; padding-inline: 2px; }
   .header-island .download-button { font-size: 11px; padding-inline: 15px; gap: 14px; min-height: 44px; }
   .header-island .download-button svg { display: none; }
   .wordmark { font-size: 26px; }
@@ -201,7 +192,6 @@ h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.16; let
   .header-island { padding-left: 12px; gap: 6px; }
   .header-island .wordmark { font-size: 21px; }
   .header-island .download-button { padding-inline: 8px; gap: 6px; font-size: 10px; }
-  .site-theme-select { width: 87px; }
   .live-example > div:nth-child(2) { margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {

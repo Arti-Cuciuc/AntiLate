@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
 import { parseSiteTheme, resolveSiteTheme, SITE_THEME_KEY, type SiteTheme, type SiteThemePreference } from '../lib/site-theme';
+import { flushSync } from 'react-dom';
+import { transitionTheme, type ThemeOrigin } from '../lib/theme-transition';
 
 const ThemeContext = createContext<{
   preference: SiteThemePreference;
   theme: SiteTheme;
-  setPreference: (value: SiteThemePreference) => void;
+  setPreference: (value: SiteThemePreference, origin?: ThemeOrigin) => void;
 } | null>(null);
 
 export function SiteThemeProvider({ children }: { children: ReactNode }) {
@@ -32,9 +34,13 @@ export function SiteThemeProvider({ children }: { children: ReactNode }) {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#141516' : '#F7F5F1');
   }, [theme]);
 
-  function change(value: SiteThemePreference) {
-    setPreference(value);
-    try { localStorage.setItem(SITE_THEME_KEY, value); } catch { /* Theme still works when storage is unavailable. */ }
+  function change(value: SiteThemePreference, origin?: ThemeOrigin) {
+    const update = () => {
+      flushSync(() => setPreference(value));
+      try { localStorage.setItem(SITE_THEME_KEY, value); } catch { /* Theme still works when storage is unavailable. */ }
+    };
+    if (resolveSiteTheme(value, systemDark) === theme) update();
+    else transitionTheme(update, origin);
   }
 
   return <ThemeContext.Provider value={{ preference, theme, setPreference: change }}>{children}</ThemeContext.Provider>;

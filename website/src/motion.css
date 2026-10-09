@@ -1,0 +1,52 @@
+/* One restrained motion language for controls, demos and scroll reveals. */
+:root { --motion-ease: cubic-bezier(.2,.75,.25,1); }
+@keyframes quiet-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.reveal-pending { opacity: 0; transform: translateY(8px); }
+.reveal-enter { animation: quiet-enter 960ms var(--motion-ease) var(--reveal-delay, 0ms) both; }
+.hero-copy.reveal-enter, .hero-product.reveal-enter {
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(.37,0,.63,1);
+}
+.feature-description, .live-example { animation: quiet-enter 600ms var(--motion-ease); }
+.questions-list details[open] p { animation: quiet-enter 480ms var(--motion-ease); }
+.site-header nav a { position: relative; }
+.site-header nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; right: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--motion-ease); }
+.site-header nav a:hover::after, .site-header nav a:focus-visible::after { transform: scaleX(1); }
+.download-button svg, .text-link svg { transition: translate 220ms var(--motion-ease); }
+.download-button:hover svg { translate: 0 2px; }
+.text-link:hover svg { translate: 3px 0; }
+.timeline-node { transition: background-color 220ms, border-color 220ms, transform 220ms var(--motion-ease); }
+.timeline-step.active .timeline-node { transform: scale(1.15); }
+.feature-options button > svg { transition: opacity 220ms, translate 220ms var(--motion-ease); }
+.feature-options button.active > svg { translate: 3px 0; }
+
+/* One direct theme control, with system appearance used by default. */
+.theme-switch { position: relative; display: flex; align-items: center; flex-shrink: 0; }
+.theme-toggle { border: 0; background: transparent; color: var(--color-ink); display: grid; place-items: center; height: 44px; padding: 0; border-radius: 22px; }
+.theme-toggle { width: 44px; position: relative; }
+.theme-toggle:hover { background: var(--color-paper); }
+.theme-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 1px; }
+.theme-system-dot { position: absolute; width: 4px; height: 4px; right: 7px; bottom: 9px; background: var(--color-muted); border-radius: 50%; }
+.theme-glyph { width: 22px; height: 22px; display: block; position: relative; view-transition-name: theme-glyph; }
+.theme-glyph svg { position: absolute; inset: 0; transition: opacity 300ms ease, transform 420ms var(--motion-ease); transform-origin: center; }
+.theme-sun { opacity: 1; transform: rotate(0) scale(1); }
+.theme-moon { opacity: 0; transform: rotate(-65deg) scale(.6); }
+.theme-glyph-dark .theme-sun { opacity: 0; transform: rotate(90deg) scale(.45); }
+.theme-glyph-dark .theme-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* Snapshot colours must be final: the radial reveal supplies the transition. */
+.theme-wave-active, .theme-wave-active * { transition: none !important; }
+::view-transition-group(root) { animation: none; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+::view-transition-group(theme-glyph) { z-index: 3; animation-duration: 560ms; }
+@keyframes glyph-out { to { opacity: 0; transform: rotate(-65deg) scale(.6); } }
+@keyframes glyph-in { from { opacity: 0; transform: rotate(65deg) scale(.6); } to { opacity: 1; transform: rotate(0) scale(1); } }
+::view-transition-old(theme-glyph) { animation: glyph-out 300ms var(--motion-ease) both; }
+::view-transition-new(theme-glyph) { animation: glyph-in 420ms var(--motion-ease) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending { opacity: 1; transform: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
