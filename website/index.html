@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F7F5F1" />
+    <script>
+      // Apply before first paint so dark-mode visitors never see a light flash.
+      (() => {
+        let preference = 'system';
+        try { preference = localStorage.getItem('antilate:site-theme:v1') || 'system'; } catch {}
+        const dark = preference === 'dark' || (preference !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#141516' : '#F7F5F1';
+      })();
+    </script>
     <meta name="description" content="AntiLate — встречи без опозданий. Узнайте, когда собираться и выходить, настройте расписание и скачайте приложение для Android." />
     <meta property="og:title" content="AntiLate — вовремя. Без суеты." />
     <meta property="og:description" content="Меньше считать в голове. Больше успевать в жизни. Приложение для Android с напоминаниями о сборах и выходе." />

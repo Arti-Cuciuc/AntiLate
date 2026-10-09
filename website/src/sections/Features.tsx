@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { resolveTheme, type ThemePreference } from '../../../src/constants/theme';
 import { AppPreview, type PreviewMode } from '../components/AppPreview';
 import { Arrow } from '../components/Icons';
+import { useSiteTheme } from '../components/SiteThemeProvider';
 
 const features: { id: PreviewMode; title: string; description: string; note: string }[] = [
   { id: 'groups', title: 'Группы встреч', description: 'Работа, учёба, личное. Создайте свои группы, дайте им названия и выберите цвета. На главном экране можно оставить только нужные встречи.', note: 'До 8 групп. Названия и цвета выбираете вы.' },
@@ -10,8 +11,9 @@ const features: { id: PreviewMode; title: string; description: string; note: str
 ];
 
 export function Features() {
+  const { theme: siteTheme } = useSiteTheme();
   const [active, setActive] = useState<PreviewMode>('groups');
-  const [theme, setTheme] = useState<ThemePreference>('light');
+  const [theme, setTheme] = useState<ThemePreference>('system');
   const [systemDark, setSystemDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
   useEffect(() => {
     const query = window.matchMedia('(prefers-color-scheme: dark)');
@@ -26,11 +28,11 @@ export function Features() {
     <div className="page-container features-grid">
       <div className="feature-copy"><p className="section-index">02 / В вашем ритме</p><h2 id="features-title">Не новая привычка.<br /><span>Просто легче жить.</span></h2>
         <div className="feature-options" aria-label="Возможности приложения">{features.map((feature, index) => <button key={feature.id} aria-controls="feature-preview" aria-pressed={feature.id === active} className={feature.id === active ? 'active' : ''} onClick={() => { setActive(feature.id); setPreviewRevision(value => value + 1); }}><span className="feature-number">0{index + 1}</span><span>{feature.title}</span><Arrow /></button>)}</div>
-        <div className="feature-description" aria-live="polite"><p>{current.description}</p><span>{current.note}</span></div>
+        <div className="feature-description" aria-live="polite" key={active}><p>{current.description}</p><span>{current.note}</span></div>
         <p className="privacy-note">Ваши планы остаются на вашем телефоне.<br />Без аккаунта и облачной синхронизации.</p>
       </div>
       <div id="feature-preview" className="feature-product">
-        <AppPreview key={`${active}-${previewRevision}`} theme={active === 'themes' ? resolveTheme(theme, systemDark ? 'dark' : 'light') : 'light'} appearancePreference={theme} onAppearanceChange={setTheme} mode={active} initialScreen={active === 'groups' ? 'groups' : active === 'schedule' ? 'templates' : 'appearance'} />
+        <AppPreview key={`${active}-${previewRevision}`} theme={active === 'themes' ? resolveTheme(theme, systemDark ? 'dark' : 'light') : siteTheme} appearancePreference={theme} onAppearanceChange={setTheme} mode={active} initialScreen={active === 'groups' ? 'groups' : active === 'schedule' ? 'templates' : 'appearance'} />
         <p className="feature-preview-label">{active === 'groups' ? 'Настройки → Группы' : active === 'schedule' ? 'Настройки → Шаблоны встреч' : 'Настройки → Тема'}</p>
       </div>
     </div>

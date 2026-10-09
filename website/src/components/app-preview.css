@@ -14,7 +14,7 @@
 .preview-brand { position: absolute; left: 48px; right: 48px; top: 0; bottom: 0; display: grid; place-items: center; }
 .preview-plus { background: var(--preview-action); color: var(--preview-on-action); font-size: 26px; line-height: 30px; font-weight: 800; padding-bottom: 2px; }
 .preview-plus:hover { opacity: .85; }
-.preview-scroll { position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; padding-top: var(--preview-content-top); padding-bottom: 44px; }
+.preview-scroll { position: absolute; inset: 0; overflow: hidden; padding-top: var(--preview-content-top); padding-bottom: 44px; }
 .preview-scroll::-webkit-scrollbar { display: none; }
 .preview-content { padding-inline: var(--preview-gutter); }
 .preview-countdown { margin-top: 26px; height: 160px; overflow: hidden; border-radius: 23px; padding: 18px; background: var(--preview-feature); color: var(--preview-on-feature); display: flex; flex-direction: column; }
@@ -52,7 +52,7 @@
 .home-indicator { width: 110px; height: 4px; border-radius: 100px; background: var(--preview-muted); opacity: .6; }
 
 /* Static DOM adaptations of SettingsScreen and EventFormScreen. */
-.preview-page { position: absolute; inset: 50px 0 25px; padding: 0 var(--preview-gutter) 34px; overflow-y: auto; scrollbar-width: none; }
+.preview-page { position: absolute; inset: 50px 0 25px; padding: 0 var(--preview-gutter) 34px; overflow: hidden; }
 .preview-page-header { height: 45px; display: flex; align-items: center; justify-content: space-between; }
 .preview-back { width: 45px; height: 45px; flex-shrink: 0; border: 2.5px solid var(--preview-outline); border-radius: 22.5px; display: grid; place-items: center; font-size: 24px; line-height: 28px; }
 .preview-settings-list { margin-top: 28px; border: 2.5px solid var(--preview-outline); border-radius: 24px; overflow: hidden; background: var(--preview-canvas); }
@@ -118,3 +118,12 @@
 .preview-appearance-option.selected .preview-radio { border-color: var(--preview-ink); }
 .preview-appearance-option.selected .preview-radio i { width: 10px; height: 10px; border-radius: 5px; background: var(--preview-action); }
 .preview-appearance-note { margin-top: 20px; color: var(--preview-muted); }
+
+/* The landing page owns vertical gestures, including over the phone demos. */
+.app-preview { touch-action: pan-x pan-y pinch-zoom; }
+.preview-filters, .preview-group-choices { overscroll-behavior: auto; }
+.preview-screen-transition { position: absolute; inset: 0; animation: quiet-enter 260ms cubic-bezier(.2,.75,.25,1); }
+.preview-event-list { animation: quiet-enter 220ms ease-out; }
+.app-preview, .preview-scene, .preview-page, .preview-nav, .preview-system-navigation,
+.preview-countdown, .preview-group-card, .preview-template-card, .preview-settings-list,
+.preview-appearance-option { transition: background-color 240ms ease, color 240ms ease, border-color 180ms ease; }

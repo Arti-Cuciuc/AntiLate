@@ -4,6 +4,7 @@ import { PREVIEW_SCREEN, PREVIEW_TEXT, previewDesign } from '../lib/app-design';
 import { SettingsIcon } from './Icons';
 import { NewEventPreview, SettingsPreview } from './PreviewScreens';
 import { AppearancePreview, GroupsPreview, TemplatesPreview } from './FeatureScreens';
+import { useSiteTheme } from './SiteThemeProvider';
 
 export type PreviewTheme = 'light' | 'dark';
 export type PreviewMode = 'groups' | 'schedule' | 'themes';
@@ -48,7 +49,7 @@ function EventPreview({ event, dark }: { event: DemoEvent; dark: boolean }) {
   </article>;
 }
 
-export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero = false, initialScreen = 'home', appearancePreference, onAppearanceChange }: {
+export function AppPreview({ theme: previewTheme, mode = 'groups', stage = 0, hero = false, initialScreen = 'home', appearancePreference, onAppearanceChange }: {
   theme?: PreviewTheme; mode?: PreviewMode; stage?: number; hero?: boolean;
   initialScreen?: PreviewScreen;
   appearancePreference?: ThemePreference;
@@ -57,9 +58,9 @@ export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero =
   const [group, setGroup] = useState('Все');
   const [screen, setScreen] = useState<PreviewScreen>(initialScreen);
   const [scale, setScale] = useState(1);
-  const [collapsed, setCollapsed] = useState(false);
   const frame = useRef<HTMLDivElement>(null);
-  const scroll = useRef<HTMLDivElement>(null);
+  const { theme: siteTheme } = useSiteTheme();
+  const theme = previewTheme ?? siteTheme;
   const dark = theme === 'dark';
   const design = previewDesign(dark);
   const state = STAGES[stage];
@@ -82,7 +83,6 @@ export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero =
   }, []);
 
   function returnHome() {
-    scroll.current?.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     setGroup('Все');
   }
 
@@ -90,12 +90,13 @@ export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero =
     <div className="preview-scale-space" ref={frame}>
       <div className="preview-scene" style={{ transform: 'scale(' + scale + ')' }}>
         <div className="preview-status" aria-hidden="true"><span>{state.clock}</span><span className="flex items-center gap-2"><svg width="15" height="14" viewBox="0 0 15 14" fill="currentColor"><path d="M0 11h3v3H0zm4-3h3v6H4zm4-4h3v10H8zm4-4h3v14h-3z" /></svg><span className="battery" /></span></div>
-        {screen === 'home' ? <><div className={'preview-nav ' + (collapsed ? 'preview-nav-collapsed' : '')}>
+        <div className="preview-screen-transition" key={screen}>
+        {screen === 'home' ? <><div className="preview-nav">
           <button className="preview-settings" aria-label="Открыть настройки примера" onClick={() => setScreen('settings')}><SettingsIcon size={25} strokeWidth={2.4} /></button>
           <button className="preview-brand" onClick={returnHome} style={PREVIEW_TEXT.large} aria-label="В начало примера">AntiLate</button>
           <button className="preview-plus" onClick={() => setScreen('new')} aria-label="Добавить новую встречу в примере">+</button>
         </div>
-        <div className="preview-scroll" ref={scroll} tabIndex={0} role="region" aria-label="Пример главного экрана AntiLate: прокручиваемый список встреч" onScroll={event => { const y = event.currentTarget.scrollTop; if (y > 12) setCollapsed(true); else if (y <= 0) setCollapsed(false); }}>
+        <div className="preview-scroll" role="region" aria-label="Пример главного экрана AntiLate">
           <div className="preview-content">
             <div className="preview-countdown">
               <div className="preview-countdown-top">
@@ -112,7 +113,7 @@ export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero =
                 <span className="preview-filter-count" style={PREVIEW_TEXT.small}>{chip === 'Все' ? events.length : events.filter(event => event.group === chip).length}</span>
               </button>)}
             </div>
-            <div className="preview-event-list">{visible.map(event => <EventPreview key={event.id} event={event} dark={dark} />)}</div>
+            <div className="preview-event-list" key={group}>{visible.map(event => <EventPreview key={event.id} event={event} dark={dark} />)}</div>
           </div>
         </div>
         </> : screen === 'settings'
@@ -121,6 +122,7 @@ export function AppPreview({ theme = 'light', mode = 'groups', stage = 0, hero =
           : screen === 'groups' ? <GroupsPreview onBack={() => setScreen('settings')} />
           : screen === 'templates' ? <TemplatesPreview onBack={() => setScreen('settings')} />
           : <AppearancePreview preference={appearancePreference ?? theme} onChange={onAppearanceChange} onBack={() => setScreen('settings')} />}
+        </div>
         <div className="preview-system-navigation" aria-hidden="true"><span className="home-indicator" /></div>
       </div>
     </div>

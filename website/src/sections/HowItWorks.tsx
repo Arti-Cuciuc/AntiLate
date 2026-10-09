@@ -20,6 +20,6 @@ export function HowItWorks() {
         <span className="timeline-select">{index === active ? 'Выбранный этап' : 'Показать этап'}<Arrow /></span>
       </button>)}
     </div>
-    <div id="plan-example" className="live-example" aria-live="polite"><div className="flex items-center gap-3"><span className="status-dot" style={{ backgroundColor: stage.dot }} /><span>{stage.status}</span></div><div><strong>{stage.value}</strong><span>{stage.label}</span></div><span className="example-label">{active === 2 ? 'Время встречи' : `Подсказка в ${stage.time}`}</span></div>
+    <div id="plan-example" className="live-example" aria-live="polite" key={active}><div className="flex items-center gap-3"><span className="status-dot" style={{ backgroundColor: stage.dot }} /><span>{stage.status}</span></div><div><strong>{stage.value}</strong><span>{stage.label}</span></div><span className="example-label">{active === 2 ? 'Время встречи' : `Подсказка в ${stage.time}`}</span></div>
   </section>;
 }
